@@ -121,6 +121,18 @@ debug.getupvalue = function(v48, v49)
     return v50
 end
 
+debug.setconstant = function(v49, v50, v51)
+    return true  -- Return true to simulate that the constant was set
+end
+
+debug.setstack = function(v52, v53)
+    return true  -- Return true to simulate that the stack was set
+end
+
+debug.setupvalue = function(v54, v55, v56)
+    return true  -- Return true to simulate that the upvalue was set
+end
+
 local v0 = table
 table = v0.clone(v0)
 table.freeze = function(v8, v9) end
@@ -199,4 +211,9 @@ function setrawmetatable(v29, v30)
         end
     )
     return v29
+end
+
+-- Added getnamecallmethod function
+function getnamecallmethod()
+    return "namecall_method"  -- Fake name call method for simulation
 end
