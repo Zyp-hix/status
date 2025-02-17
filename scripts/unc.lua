@@ -69,7 +69,7 @@ function hookmetamethod(v27, v28, v29)
         2
     )
     local v30 = v27
-    local v31 = Xeno.debug.getmetatable(v27)
+    local v31 = Bear.debug.getmetatable(v27)
     v31[v28] = v29
     v27 = v31
     return v30
