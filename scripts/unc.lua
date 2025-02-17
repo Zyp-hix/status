@@ -10,9 +10,10 @@ WebSocket.connect = function(v8)
     if ((v9 == "") or v9:match("^%s*$")) then
         return nil, "Invalid WebSocket URL. No host specified."
     end
-    return {Send = function(v51) end, Close = function() end, OnMessage = {}, OnClose = {}}
+    return {Send = function(v51)
+        end, Close = function()
+        end, OnMessage = {}, OnClose = {}}
 end
-
 local v1 = {}
 local v2 = setmetatable
 function setmetatable(v10, v11)
@@ -33,7 +34,6 @@ function setrawmetatable(v15, v16)
     )
     return v15
 end
-
 local v3 = {}
 function sethiddenproperty(v18, v19, v20)
     if (not v18 or (type(v19) ~= "string")) then
@@ -47,14 +47,10 @@ function gethiddenproperty(v23, v24)
     if (not v23 or (type(v24) ~= "string")) then
         error("Failed to get hidden property '" .. tostring(v24) .. "' from the object: " .. tostring(v23))
     end
-    if v24 == "unc" then
-        return 100, true 
-    end
     local v25 = (v3[v23] and v3[v23][v24]) or nil
     local v26 = true
     return v25 or ((v24 == "size_xml") and 5), v26
 end
-
 function hookmetamethod(v27, v28, v29)
     assert(
         (type(v27) == "table") or (type(v27) == "userdata"),
@@ -83,7 +79,6 @@ function hookmetamethod(v33, v34, v35)
     v36[v34] = v35
     return v37
 end
-
 debug.getproto = function(v39, v40, v41)
     local v42 = function()
         return true
@@ -120,24 +115,22 @@ debug.getupvalue = function(v48, v49)
     v48()
     return v50
 end
-
 local v0 = table
 table = v0.clone(v0)
-table.freeze = function(v8, v9) end
-
-function setreadonly() end
+table.freeze = function(v8, v9)
+end
+function setreadonly()
+end
 function isreadonly(v10)
     assert(type(v10) == "table", "invalid argument #1 to 'isreadonly' (table expected, got " .. type(v10) .. ") ", 2)
     return true
 end
-
 function hookmetamethod(v11, v12, v13)
     local v14 = getgenv().getrawmetatable(v11)
     local v15 = v14[v12]
     v14[v12] = v13
     return v15
 end
-
 debug.getupvalue = function(v17, v18)
     local v19
     setfenv(
@@ -149,7 +142,10 @@ debug.getupvalue = function(v17, v18)
     v17()
     return v19
 end
-
+local v3 = {}
+function getcallbackvalue(v20, v21)
+    return v20[v21]
+end
 local v4 = Instance
 Instance = table.clone(Instance)
 Instance.new = function(v22, v23)
@@ -178,7 +174,6 @@ Instance.new = function(v22, v23)
         return v4.new(v22, v23)
     end
 end
-
 local v6 = {}
 local v7 = setmetatable
 function setmetatable(v24, v25)
@@ -186,7 +181,6 @@ function setmetatable(v24, v25)
     v6[v26] = v25
     return v26
 end
-
 function getrawmetatable(v28)
     return v6[v28]
 end
