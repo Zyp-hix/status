@@ -213,7 +213,7 @@ function setrawmetatable(v29, v30)
     return v29
 end
 
--- Added getnamecallmethod function
+-- Added real getnamecallmethod function
 function getnamecallmethod()
-    return "namecall_method"  -- Fake name call method for simulation
+    return debug.getinfo(2, "n").name  -- Retrieves the method name from the current call stack
 end
