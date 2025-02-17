@@ -1,6 +1,6 @@
 local StarterGui = game:GetService("StarterGui")
 
--- Attempt to hook SetCore early
+-- Overwrite SetCore completely
 local old_SetCore = StarterGui.SetCore
 
 StarterGui.SetCore = function(self, coreType, data)
@@ -8,11 +8,9 @@ StarterGui.SetCore = function(self, coreType, data)
         local title = data.Title or ""
         local text = data.Text or ""
 
-        -- Check if the notification contains "Xeno"
-        if title:find("Xeno") or text:find("Xeno") then
-            -- Override with your custom notification instead
-            data.Title = "Injected"
-            data.Text = "Bear is injected"
+        -- **BLOCK ALL XENO NOTIFICATIONS COMPLETELY**
+        if string.find(title, "Xeno") or string.find(text, "Xeno") then
+            return -- Do NOTHING, so it NEVER shows
         end
     end
 
@@ -20,16 +18,12 @@ StarterGui.SetCore = function(self, coreType, data)
     return old_SetCore(self, coreType, data)
 end
 
--- Force override existing notifications
+-- **FORCE INJECT YOUR NOTIFICATION IMMEDIATELY**
 task.spawn(function()
-    while true do
-        task.wait(0.1) -- Check frequently
-        StarterGui:SetCore("SendNotification", {
-            Title = "Injected",
-            Text = "Bear is injected",
-        })
-    end
+    task.wait(1) -- Small delay to override Xeno's message
+    StarterGui:SetCore("SendNotification", {
+        Title = "Injected",
+        Text = "Bear is injected",
+        Duration = 5
+    })
 end)
-
--- Execute the main script
-loadstring(game:HttpGet("https://bearstatus.vercel.app/scripts/Startup.lua"))()
