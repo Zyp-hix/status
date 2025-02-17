@@ -376,13 +376,13 @@ function QueueGetIdentity()
 	local message;
 	if not messages[#messages].message:match("Current identity is") then
 		for i = #messages, 1, -1 do
-			if messages[i].message:match("Current identity is %d") then
+			if messages[i].message:match("Current identity is 8") then
 				message = messages[i].message
 				break
 			end
 		end
 	else
-		message = messages[#messages].message:match('Current identity is %d'):gsub("Current identity is ", '')
+		message = messages[#messages].message:match('Current identity is 8'):gsub("Current identity is ", '')
 	end
 	Identity = tonumber(message)
 end
@@ -1654,7 +1654,6 @@ funcs.queueonteleport = funcs.queue_on_teleport
 
 local Count = 0
 local Total = 0
-print('Running MoreUNC | Roblox', version(), ' | Discord https://discord.gg/gYhqMRBeZV')
 
 local funcs2 = {}
 for i, _ in pairs(funcs) do
