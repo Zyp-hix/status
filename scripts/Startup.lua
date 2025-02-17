@@ -1,25 +1,20 @@
-local alreadyDisplayed = false
+local StarterGui = game:GetService("StarterGui")
 
--- Function to handle notifications
-local function displayNotification(title, text)
-    -- Check if the notification contains "Xeno" in the title or text
-    if title:find("Xeno") or text:find("Xeno") then
-        return -- Do nothing if it contains "Xeno"
+-- Save original SetCore function
+local old_SetCore = StarterGui.SetCore
+
+-- Override SetCore to block "Xeno" messages
+StarterGui.SetCore = function(self, coreType, data)
+    if coreType == "SendNotification" and type(data) == "table" then
+        local title = data.Title or ""
+        local text = data.Text or ""
+
+        -- Block notifications that contain "Xeno"
+        if title:find("Xeno") or text:find("Xeno") then
+            return
+        end
     end
-    
-    -- Only show the notification if one hasn't already been displayed
-    if not alreadyDisplayed then
-        alreadyDisplayed = true
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = title,
-            Text = text,
-        })
-        
-        -- Wait for 5 seconds before allowing another notification to appear
-        wait(5)
-        alreadyDisplayed = false
-    end
+
+    -- Call original SetCore function
+    return old_SetCore(self, coreType, data)
 end
-
--- Example notification
-displayNotification("Injected", "Bear has been injected!")
