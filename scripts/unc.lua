@@ -44,24 +44,6 @@ function sethiddenproperty(v18, v19, v20)
     return true
 end
 
-function QueueGetIdentity()
-	printidentity()
-	task.wait(.1)
-	local messages = Log:GetLogHistory()
-	local message;
-	if not messages[#messages].message:match("Current identity is") then
-		for i = #messages, 1, -1 do
-			if messages[i].message:match("Current identity is 8") then
-				message = messages[i].message
-				break
-			end
-		end
-	else
-		message = messages[#messages].message:match('Current identity is 8'):gsub("Current identity is ", '')
-	end
-	Identity = tonumber(message)
-end
-
 function gethiddenproperty(v23, v24)
     if (not v23 or (type(v24) ~= "string")) then
         error("Failed to get hidden property '" .. tostring(v24) .. "' from the object: " .. tostring(v23))
